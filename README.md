@@ -6,6 +6,8 @@ support i2c tools and spi tools etc.
 
 TX(D0, output) genetate the clock for SCK in i2c bus, RX(D1, input) read the voltage signal of SDA, CTS(D2, output) would pull the SDA down to 200mV if you set CTS with digital 0. SDA pull up with 4.7Kohm resistor by default.
 
+>  Note: extrenal crystal or oscillator is necessary!
+
 2. Result of scan i2c bus
 ```
 PS ~> .\i2c-detect.exe
