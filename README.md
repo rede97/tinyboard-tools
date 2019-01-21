@@ -2,10 +2,10 @@
 support i2c tools and spi tools etc.
 >  Note: extrenal crystal or oscillator is necessary!
 
-* example: Connect FT232RL with mpu9250(GY-91)
-> TX(D0, output) genetate the clock for SCK, RX(D1, input) read the voltage signal of SDA, CTS(D2, output) would pull the SDA down to 200mV by schottky diode if you set CTS with digital 0. SDA pull up with 4.7Kohm resistor by default.
+## Connect FT232RL with i2c device
+![SCH](./img/sch_schem.png)
 
-## i2cdetect
+## i2cdetect (GY-91)
 ```
 PS ~> .\i2cdetect.exe 0
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
