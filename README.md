@@ -5,6 +5,13 @@ support i2c tools and spi tools etc.
 ## Connect FT232RL with i2c device
 ![SCH](./img/sch_schem.png)
 
+## Builld
+1. Windows
+```
+>premake4 gmake
+>make
+```
+
 ## i2cdetect (GY-91)
 ```
 PS ~> .\i2cdetect.exe 0
