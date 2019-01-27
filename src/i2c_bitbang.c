@@ -1,21 +1,5 @@
 #include "i2c_bitbang.h"
 
-// void print_wave(uint8_t *wav, uint32_t len, uint8_t bits) {
-//   for (int j = 0; j < bits; ++j) {
-//     uint8_t last_bit = -1;
-//     for (int i = 0; i < len; ++i) {
-//       uint8_t bit = wav[i] >> j & 0x01;
-//       if (bit != last_bit) {
-//         putchar(bit + '0');
-//       } else {
-//         putchar('.');
-//       }
-//       last_bit = bit;
-//     }
-//     putchar('\n');
-//   }
-// }
-
 uint32_t i2c_send(uint8_t *dst, uint8_t dat) {
   for (int i = 0; i < 8; ++i) {
     uint8_t bit = (dat & 0x80) ? SDA_H : 0;
@@ -100,7 +84,7 @@ void i2c_decode(uint8_t *src, uint8_t *dst, uint32_t len) {
     uint8_t v = 0x00;
     uint8_t *p = src + i2c_recv_serial_size * i;
     for (int j = 0; j < 8; ++j) {
-      if (p[j * 3 + 1] & 0x02) {
+      if (p[j * 3 + 1] & SDA_H) {
         v = (v << 1) | 1;
       } else {
         v = (v << 1);

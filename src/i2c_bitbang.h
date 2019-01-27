@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 static const uint8_t SCL_H = 0b0001;
-static const uint8_t SDA_H = 0b0100;
+static const uint8_t SDA_H = 0b0010;
 static const uint8_t i2c_addr_start = 0x03, i2c_addr_stop = 0x77;
 
 static const uint32_t i2c_start_serial_size = 3;

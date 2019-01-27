@@ -1,6 +1,6 @@
 #include "ftd2xx.h"
-#include "utils.h"
 #include "i2c_bitbang.h"
+#include "utils.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,7 +23,7 @@ int8_t i2c_detect(FT_HANDLE fthandle, uint8_t *devices) {
     return 0;
   }
   for (int i = 0; i <= i2c_addr_stop - i2c_addr_start; ++i) {
-    if ((i2c_scan_serial[i * 33 + 29] & 0x02) == 0x00) {
+    if ((i2c_scan_serial[i * 33 + 29] & SDA_H) == 0x00) {
       dev_cnt++;
       devices[i] = i2c_addr_start + i;
     } else {
@@ -56,7 +56,8 @@ void i2c_detect_output(uint8_t *devices) {
   printf("\n");
 }
 
-const char * help = "Usage: i2cdetect I2CBUS\n i2cdetect -l\n I2CBUS is an integer or an I2C bus name\n";
+const char *help = "Usage: i2cdetect I2CBUS\n i2cdetect -l\n I2CBUS is an "
+                   "integer or an I2C bus name\n";
 
 int main(int argc, char *argv[]) {
 
@@ -95,7 +96,7 @@ int main(int argc, char *argv[]) {
         return 0;
       }
     } else {
-      if(is_integer(argv[1])) {
+      if (is_integer(argv[1])) {
         sscanf(argv[1], "%d", &sel_dev);
       } else {
         puts(help);
@@ -109,7 +110,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  ftStatus = FT_SetBitMode(handle, 0x05, FT_BITMODE_SYNC_BITBANG);
+  ftStatus = FT_SetBitMode(handle, 0x03, FT_BITMODE_SYNC_BITBANG);
   if (ftStatus) {
     return 1;
   }
@@ -120,11 +121,9 @@ int main(int argc, char *argv[]) {
   }
 
   FT_Purge(handle, FT_PURGE_RX);
-
   uint8_t devices[128];
   i2c_detect(handle, devices);
   i2c_detect_output(devices);
-
   FT_Close(handle);
   return 0;
 }

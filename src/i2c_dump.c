@@ -85,7 +85,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  ftStatus = FT_SetBitMode(handle, 0x05, FT_BITMODE_SYNC_BITBANG);
+  ftStatus = FT_SetBitMode(handle, 0x03, FT_BITMODE_SYNC_BITBANG);
   if (ftStatus) {
     return 1;
   }
