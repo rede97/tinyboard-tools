@@ -115,7 +115,7 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  ftStatus = FT_SetBaudRate(handle, 9600);
+  ftStatus = FT_SetBaudRate(handle, 38400);
   if (ftStatus) {
     return 1;
   }
@@ -126,4 +126,6 @@ int main(int argc, char *argv[]) {
   i2c_detect_output(devices);
   FT_Close(handle);
   return 0;
+
+
 }
