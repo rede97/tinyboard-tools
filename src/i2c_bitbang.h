@@ -11,6 +11,7 @@ static const uint32_t i2c_start_serial_size = 3;
 static const uint32_t i2c_stop_serial_size = 3;
 static const uint32_t i2c_send_serial_size = 24 + 3;
 static const uint32_t i2c_recv_serial_size = 24 + 3;
+uint32_t i2c_start(uint8_t *dst);
 
 uint32_t i2c_send(uint8_t *dst, uint8_t dat);
 uint32_t i2c_recv(uint8_t *dst, uint32_t ack);
