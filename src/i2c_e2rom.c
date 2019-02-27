@@ -14,19 +14,19 @@
 const char * help = "Usage: i2cdump I2CBUS ADDRESS\n I2CBUS is an integer\n ADDRESS is an hex integer (0x03 - 0x77)\n";
 
 
-void i2c_read(FT_HANDLE handle, uint16_t reg, uint8_t *dat,uint8_t ndat);
+void i2c_read(FT_HANDLE handle, uint16_t addr, uint8_t *dat,uint8_t ndat);
 void i2c_write(FT_HANDLE handle, uint16_t addr,uint8_t dat);
 
 
-void i2c_read(FT_HANDLE handle, uint16_t reg, uint8_t *dat,uint8_t ndat) {
+void i2c_read(FT_HANDLE handle, uint16_t addr, uint8_t *dat,uint8_t ndat) {
   uint8_t serial[1024];
   uint32_t restart_point, nbytes;
   //start + addr + w +
   uint32_t len = i2c_begin(serial, AT24C256B_ADDR); //开始写 
   //高8位地址+
-  len += i2c_send(serial + len,(reg>>8));
+  len += i2c_send(serial + len,(addr>>8));
   //低8位地址+
-  len += i2c_send(serial + len,(reg&0xff));
+  len += i2c_send(serial + len,(addr&0xff));
   //stop
   len += i2c_stop(serial + len);
 
@@ -61,9 +61,16 @@ void i2c_write(FT_HANDLE handle, uint16_t addr,uint8_t dat)
    Sleep(EEPROM_DELAY);
 }
 
-void e2prom_write_8bit(FT_HANDLE handle, uint16_t addr, uint8_t dat)
+void e2prom_read(FT_HANDLE handle, uint16_t addr, uint8_t *dat,uint8_t ndat)
 {
-    i2c_write(handle,addr,dat);
+    i2c_read(handle,addr,dat,ndat);
+}
+
+void e2prom_write_8bit(FT_HANDLE handle, uint16_t addr, uint8_t* dat,uint16_t ndat)
+{
+    int index;
+    for(index=0;index<ndat;index++)
+      i2c_write(handle,addr+index,dat[index]);
 }
 
 void e2prom_write_16bit(FT_HANDLE handle, uint16_t addr, uint16_t dat)
@@ -85,7 +92,7 @@ void e2prom_dump(FT_HANDLE handle, uint8_t *dat, uint16_t ndat)
 void e2prom_erase(FT_HANDLE handle)
 {
   for(int i=0;i<EEPROM_BATCH_CAPCITY;i++)
-   e2prom_write_8bit(handle,i,0xff);
+   i2c_write(handle,i,0xff);
 }
 
 void e2prom_dump_output(uint8_t *dat,uint16_t length)
@@ -114,7 +121,8 @@ int main(int argc, char *argv[])
 
   int sel_dev = 0;
   uint8_t dat[1024]={0};
-  uint16_t ndat = 0xff;
+  uint8_t wDat[10] = {0,1,2,3,4,5,6,7,8,9};
+  uint16_t ndat = 0x2ff;
 
   ftStatus = FT_CreateDeviceInfoList(&numDevs);
   if (ftStatus != FT_OK) {
@@ -167,6 +175,7 @@ int main(int argc, char *argv[])
   start = clock();
   // e2prom_write_16bit(handle,0x0000,0x1234);
   //e2prom_erase(handle);
+  e2prom_write_8bit(handle,0x2f0,wDat,sizeof(wDat));
   e2prom_dump(handle,dat,ndat);
   e2prom_dump_output(dat,ndat);
 
