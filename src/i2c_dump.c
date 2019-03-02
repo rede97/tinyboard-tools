@@ -36,7 +36,7 @@ void i2c_dump_output(uint8_t *dat) {
   
   for (int i = 0; i < 0xff; i += 0x10) {
     printf("\n%02x:", i);
-    hex2str(&dat[i], str, 16);
+    hex2str(&dat[i], str, 0x10);
     for (int j = 0; j < 0x10; ++j) {
       printf(" %02x", dat[i + j]);
     }
