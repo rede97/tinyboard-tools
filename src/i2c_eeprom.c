@@ -9,7 +9,7 @@
 
 #define AT24C256B_ADDR  0x50
 #define EEPROM_BATCH_CAPCITY 0x800
-#define EEPROM_DELAY  3
+#define EEPROM_DELAY  30
 
 #define IS_INTEGER_CHAR(X) ((X)>=0x30 && (X)<=0x39)?1:(((X)>=0x41 && (X)<=0x5a)?1:(((X)>=0x61 && (X)<=0x7a)?1:0))
 
@@ -215,6 +215,11 @@ int main(int argc, char *argv[])
   }
 
   FT_Purge(handle, FT_PURGE_RX);
+  
+  puts("eeprom write: 0xabed@0x0000");
+  e2prom_write_16bit(handle, 0x0000,0xabed);
+  puts("eeprom write: 0xeacc@0x0010");
+  e2prom_write_16bit(handle, 0x0010, 0xeacc);
 
   if(sel_bit == 8)
      BIT8_FLAG = 1;
@@ -234,11 +239,5 @@ int main(int argc, char *argv[])
   e2prom_dump(handle,dat,ndat);
   e2prom_dump_output(dat,ndat);
 
-  finish = clock();
-
-  duration = (double)(finish - start) / CLOCKS_PER_SEC;
-  printf("\ntime duration:%0.3fs\n",duration);
-
- 
   return 0;
 }

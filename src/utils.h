@@ -48,4 +48,14 @@ static inline void print_wave(uint8_t *wav, uint32_t len, uint8_t bits) {
   }
 }
 
+static inline void hex2str(uint8_t *hex, char *str, uint32_t len) {
+  for(uint32_t i = 0; i < len; ++i) {
+    if(hex[i] < 0x20 || hex[i] >= 0x7f) {
+      str[i] = '.';
+    } else {
+      str[i] = hex[i];
+    }
+  }
+}
+
 #endif
