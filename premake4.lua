@@ -31,3 +31,8 @@ solution "tinyboard-tools"
 		kind "ConsoleApp"
 		files { "src/i2c_e2rom.c", "src/i2c_bitbang.c" }
 
+	project "spitest"
+		language "C"
+		kind "ConsoleApp"
+		files { "src/spi_test.c", "src/spi_bitbang.c" }
+
