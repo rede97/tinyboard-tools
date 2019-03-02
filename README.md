@@ -29,7 +29,6 @@ PS ~> .\i2cdetect.exe 0
 ## i2cdump
 ```
 PS ~> .\i2cdump.exe 0 0x68
-λ i2cdump.exe 0 0x68
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f |0123456789abcdef|
 00: c5 ce e0 0e a0 17 25 cf fa f0 fb fd 00 5a 5b 77 |......%......Z[w|
 10: bf b9 a5 00 00 00 00 00 00 00 00 00 00 00 00 00 |................|
