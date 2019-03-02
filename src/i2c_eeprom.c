@@ -9,7 +9,7 @@
 
 #define AT24C256B_ADDR  0x50
 #define EEPROM_BATCH_CAPCITY 0x800
-#define EEPROM_DELAY  3
+#define EEPROM_DELAY  30
 
 const char * help = "Usage: i2cdump I2CBUS ADDRESS\n I2CBUS is an integer\n ADDRESS is an hex integer (0x03 - 0x77)\n";
 
@@ -97,7 +97,7 @@ void e2prom_dump_output(uint8_t *dat,uint16_t length)
   for(column=0;column<length;column++)
   {
     if(column%0x10 == 0){
-      printf("\n%03x",column/0x10);
+      printf("\n%04x",column/0x10);
     }
     printf(" %02x",dat[column]);
   }
@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
 
   int sel_dev = 0;
   uint8_t dat[1024]={0};
-  uint16_t ndat = 0xff;
+  uint16_t ndat = 0x3f;
 
   ftStatus = FT_CreateDeviceInfoList(&numDevs);
   if (ftStatus != FT_OK) {
@@ -160,21 +160,16 @@ int main(int argc, char *argv[])
   }
 
   FT_Purge(handle, FT_PURGE_RX);
+  
+  puts("eeprom write: 0xabed@0x0000");
+  e2prom_write_16bit(handle, 0x0000,0xabed);
+  puts("eeprom write: 0xeacc@0x0010");
+  e2prom_write_16bit(handle, 0x0010, 0xeacc);
 
-  clock_t start,finish;
-  double duration;
-
-  start = clock();
-  // e2prom_write_16bit(handle,0x0000,0x1234);
+  puts("eeprom dump:");
   //e2prom_erase(handle);
   e2prom_dump(handle,dat,ndat);
   e2prom_dump_output(dat,ndat);
 
-  finish = clock();
-
-  duration = (double)(finish - start) / CLOCKS_PER_SEC;
-  printf("\ntime duration:%0.3fs\n",duration);
-
- 
   return 0;
 }

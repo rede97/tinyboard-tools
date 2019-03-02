@@ -26,8 +26,8 @@ solution "tinyboard-tools"
 		kind "ConsoleApp"
 		files { "src/i2c_dump.c", "src/i2c_bitbang.c" }
 
-	project "i2ce2rom"
+	project "eeprom"
 		language "C"
 		kind "ConsoleApp"
-		files { "src/i2c_e2rom.c", "src/i2c_bitbang.c" }
+		files { "src/i2c_eeprom.c", "src/i2c_bitbang.c" }
 
