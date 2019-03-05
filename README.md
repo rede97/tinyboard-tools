@@ -49,6 +49,29 @@ f0: 00 00 00 00 00 71 00 15 fa 00 eb 12 00 22 82 00 |.....q......."..|
 ```
 ## i2ce2prom
 ```
+λ eeprom_test.exe 0 0x50 16
 
+erase page: 0x000
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f |0123456789abcdef|
+00: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+10: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+20: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+30: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+40: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+50: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+60: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+70: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+write page: "Hello World, EEPROM Write test" @0x0000
+     0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f |0123456789abcdef|
+00: 48 65 6c 6c 6f 20 57 6f 72 6c 64 2c 20 45 45 50 |Hello World, EEP|
+10: 52 4f 4d 20 57 72 69 74 65 20 74 65 73 74 ff ff |ROM Write test..|
+20: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+30: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+40: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+50: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+60: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+70: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
+80: ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff ff |................|
 
 ```
